@@ -1,0 +1,99 @@
+lisp>>
+(((lambda (x) x) atom) a)
+
+eval==========================
+
+e:
+Pair16
+car16: Pair17
+    car17: Pair18
+        car18: Atom19 lambda
+        cdr18: Pair20
+        car20: Pair21
+            car21: Atom22 x
+            cdr21: Atom23 NIL
+        cdr20: Pair24
+        car24: Atom25 x
+        cdr24: Atom26 NIL
+    cdr17: Pair27
+    car27: Atom28 atom
+    cdr27: Atom29 NIL
+cdr16: Pair30
+car30: Atom31 a
+cdr30: Atom32 NIL
+
+e:
+Atom1 NIL
+
+==============================
+eval(cons(eval(e.car(), a), e.cdr()), a)
+eval==========================
+
+e:
+Pair17
+car17: Pair18
+    car18: Atom19 lambda
+    cdr18: Pair20
+    car20: Pair21
+        car21: Atom22 x
+        cdr21: Atom23 NIL
+    cdr20: Pair24
+    car24: Atom25 x
+    cdr24: Atom26 NIL
+cdr17: Pair27
+car27: Atom28 atom
+cdr27: Atom29 NIL
+
+e:
+Atom1 NIL
+
+==============================
+eval==========================
+
+e:
+Atom28 atom
+
+e:
+Atom1 NIL
+
+==============================
+eval==========================
+
+e:
+Atom25 x
+
+e:
+Pair41
+car41: Pair38
+    car38: Atom22 x
+    cdr38: Pair37
+    car37: Atom28 atom
+    cdr37: Atom36 NIL
+cdr41: Atom1 NIL
+
+==============================
+eval==========================
+
+e:
+Pair42
+car42: Atom28 atom
+cdr42: Pair30
+car30: Atom31 a
+cdr30: Atom32 NIL
+
+e:
+Atom1 NIL
+
+==============================
+eval==========================
+
+e:
+Atom31 a
+
+e:
+Atom1 NIL
+
+==============================
+result ===================================
+
+Atom43 T

@@ -2,6 +2,13 @@ package pkg;
 
 public class Eval {
     public static Node eval(Node e, Node a) throws Exception {
+
+        System.out.println("eval==========================\n");
+        System.out.println("e:");
+        e.echo();
+        System.out.println("a:");
+        a.echo();
+        System.out.println("==============================");
         try {
             if (e.isAtom()) {
                 return assoc(e, a);
@@ -73,15 +80,15 @@ public class Eval {
                     return append(e.cdr().car(), e.cdr().cdr().car());
                 }
 
-                if (e.car().value().equals("plus")){
+                if (e.car().value().equals("plus")) {
                     return plus(eval(e.cdr().car(), a), eval(e.cdr().cdr().car(), a));
                 }
 
-                if (e.car().value().equals("minus")){
+                if (e.car().value().equals("minus")) {
                     return minus(eval(e.cdr().car(), a), eval(e.cdr().cdr().car(), a));
                 }
 
-                if(e.car().value().equals("rand")){
+                if (e.car().value().equals("rand")) {
                     return rand(eval(e.cdr().car(), a));
                 }
 
@@ -90,74 +97,84 @@ public class Eval {
                 // それ以外はthrow
                 Node ff = assoc(e.car(), a);
                 if (ff == e.car()) {
-                    throw new Exception("case: non-defined operator\n");
+                    throw new Exception("case: non-defined operator\n" + e.car().tos(0));
                 }
                 return eval(cons(ff, e.cdr()), a);
             }
-            if (e.car().car().value().equals("lambda")) {
-                try {
-                    Node e2 = e.car().cdr().cdr().car();
-                    Node cadar = e.car().cdr().car();
-                    Node resolved_e = eval_list(e.cdr(), a);
-                    Node a2 = append(pair(cadar, resolved_e), a);
-                    return eval(e2, a2);
-                } catch (Exception error) {
-                    throw new Exception("case: lambda\n" + error);
+            if (e.car().car().isAtom()) {
+                if (e.car().car().value().equals("lambda")) {
+                    try {
+                        Node e2 = e.car().cdr().cdr().car();
+                        Node cadar = e.car().cdr().car();
+                        Node resolved_e = eval_list(e.cdr(), a);
+                        Node a2 = append(pair(cadar, resolved_e), a);
+                        return eval(e2, a2);
+                    } catch (Exception error) {
+                        throw new Exception("case: lambda\n" + error);
+                    }
+                }
+                if (e.car().car().value().equals("label")) {
+                    try {
+                        Node e2 = cons(e.car().cdr().cdr().car(), e.cdr());
+                        Node ff = cons(e.car().cdr().car(), cons(e.car(), new Atom()));
+                        Node a2 = cons(ff, a);
+                        return eval(e2, a2);
+                    } catch (Exception error) {
+                        throw new Exception("case: label\n" + error);
+                    }
                 }
             }
-            if (e.car().car().value().equals("label")) {
-                try {
-                    Node e2 = cons(e.car().cdr().cdr().car(), e.cdr());
-                    Node ff = cons(e.car().cdr().car(), cons(e.car(), new Atom()));
-                    Node a2 = cons(ff, a);
-                    return eval(e2, a2);
-                } catch (Exception error) {
-                    throw new Exception("case: label\n" + error);
-                }
-            }
-            throw new Exception("case: non-executable\n");
+
+            // cons(eval(e.car(), a), e.cdr()).echo();
+            System.out.println("eval(cons(eval(e.car(), a), e.cdr()), a)");
+            System.out.println("e.car():");
+            e.car().echo();
+            System.out.println("e.cdr():");
+            e.cdr().echo();
+            return eval(cons(eval(e.car(), a), e.cdr()), a);
+            // throw new Exception("case: non-executable\n");
         } catch (Exception error) {
-            throw new Exception("at Eval.eval\n" +"e:\n" +  e.tos(0) + "\n" + error);
+            throw new Exception("at Eval.eval\n" + "e:\n" + e.tos(0) + "\na:\n" + a.tos(0) + "\n" + error);
         }
     }
 
     static Node plus(Node e, Node a) throws Exception {
-        try{
-            if(e.isNum() && a.isNum()){
+        try {
+            if (e.isNum() && a.isNum()) {
                 int eint = Integer.parseInt(e.value());
                 int aint = Integer.parseInt(a.value());
                 return new Atom(Integer.toString(eint + aint));
-            }else{
+            } else {
                 throw new Exception("case: argument is not a number\n");
             }
-        }catch(Exception error){
+        } catch (Exception error) {
             throw new Exception("at Eval.plus\n" + e.tos(0) + "\n" + a.tos(0) + "\n" + error);
         }
     }
 
     static Node minus(Node e, Node a) throws Exception {
-        try{
-            if(e.isNum() && a.isNum()){
+        try {
+            if (e.isNum() && a.isNum()) {
                 int eint = Integer.parseInt(e.value());
                 int aint = Integer.parseInt(a.value());
                 return new Atom(Integer.toString(eint - aint));
-            }else{
+            } else {
                 throw new Exception("case: argument is not a number\n");
             }
-        }catch(Exception error){
+        } catch (Exception error) {
             throw new Exception("at Eval.minus\n" + e.tos(0) + "\n" + a.tos(0) + "\n" + error);
         }
     }
 
-    static Node rand(Node x)throws Exception{
-        try{
-            if(!x.isNum()){
+    static Node rand(Node x) throws Exception {
+        try {
+            if (!x.isNum()) {
                 throw new Exception("case: argument is not a number");
             }
             int seed = Integer.parseInt(x.value());
             MTRandom mt = new MTRandom(seed);
             return new Atom(Integer.toString(mt.nextInt()));
-        }catch(Exception error){
+        } catch (Exception error) {
             throw new Exception("at Eval.rand\n" + x.tos(0) + "\n" + error);
         }
     }
@@ -193,7 +210,11 @@ public class Eval {
     }
 
     static Pair cons(Node l, Node r) {
-        return new Pair(l, r);
+        Pair p = new Pair(l, r);
+        System.out.println("cons===================");
+        p.echo();
+        System.out.println("=======================");
+        return p;
     }
 
     static Node pair(Node x, Node y) throws Exception {
@@ -209,10 +230,14 @@ public class Eval {
     }
 
     static Node eval_list(Node e, Node a) throws Exception {
-        if (e.isNIL()) {
-            return new Atom();
-        } else {
-            return cons(eval(e.car(), a), eval_list(e.cdr(), a));
+        try {
+            if (e.isNIL()) {
+                return new Atom();
+            } else {
+                return cons(eval(e.car(), a), eval_list(e.cdr(), a));
+            }
+        } catch (Exception error) {
+            throw new Exception("at Eval.eval_list\n" + error);
         }
     }
 

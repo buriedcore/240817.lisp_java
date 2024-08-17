@@ -20,11 +20,11 @@ public class Atom extends Node{
     }
 
     public Node car() throws Exception{
-        throw new Exception("at Atom(" + id + ").car() not allowed\n");
+        throw new Exception("at Atom(" + id + ").car() not allowed\n" + this.value());
     }
 
     public Node cdr() throws Exception{
-        throw new Exception("at Atom(" + id + ").cdr() not allowed\n");
+        throw new Exception("at Atom(" + id + ").cdr() not allowed\n" + this.value());
     }
 
     public String value(){

@@ -1,0 +1,290 @@
+lisp>>
+(((lambda (x) (lambda (y) (cons x y))) a ) b)
+
+eval==========================
+
+e:
+Pair3
+car3: Pair4
+    car4: Pair5
+        car5: Atom6 lambda
+        cdr5: Pair7
+        car7: Pair8
+            car8: Atom9 x
+            cdr8: Atom10 NIL
+        cdr7: Pair11
+        car11: Pair12
+            car12: Atom13 lambda
+            cdr12: Pair14
+            car14: Pair15
+                car15: Atom16 y
+                cdr15: Atom17 NIL
+            cdr14: Pair18
+            car18: Pair19
+                car19: Atom20 cons
+                cdr19: Pair21
+                car21: Atom22 x
+                cdr21: Pair23
+                car23: Atom24 y
+                cdr23: Atom25 NIL
+            cdr18: Atom26 NIL
+        cdr11: Atom27 NIL
+    cdr4: Pair28
+    car28: Atom29 a
+    cdr28: Atom30 NIL
+cdr3: Pair31
+car31: Atom32 b
+cdr31: Atom33 NIL
+
+a:
+Atom1 NIL
+
+==============================
+eval(cons(eval(e.car(), a), e.cdr()), a)
+e.car():
+Pair4
+car4: Pair5
+    car5: Atom6 lambda
+    cdr5: Pair7
+    car7: Pair8
+        car8: Atom9 x
+        cdr8: Atom10 NIL
+    cdr7: Pair11
+    car11: Pair12
+        car12: Atom13 lambda
+        cdr12: Pair14
+        car14: Pair15
+            car15: Atom16 y
+            cdr15: Atom17 NIL
+        cdr14: Pair18
+        car18: Pair19
+            car19: Atom20 cons
+            cdr19: Pair21
+            car21: Atom22 x
+            cdr21: Pair23
+            car23: Atom24 y
+            cdr23: Atom25 NIL
+        cdr18: Atom26 NIL
+    cdr11: Atom27 NIL
+cdr4: Pair28
+car28: Atom29 a
+cdr28: Atom30 NIL
+
+e.cdr():
+Pair31
+car31: Atom32 b
+cdr31: Atom33 NIL
+
+eval==========================
+
+e:
+Pair4
+car4: Pair5
+    car5: Atom6 lambda
+    cdr5: Pair7
+    car7: Pair8
+        car8: Atom9 x
+        cdr8: Atom10 NIL
+    cdr7: Pair11
+    car11: Pair12
+        car12: Atom13 lambda
+        cdr12: Pair14
+        car14: Pair15
+            car15: Atom16 y
+            cdr15: Atom17 NIL
+        cdr14: Pair18
+        car18: Pair19
+            car19: Atom20 cons
+            cdr19: Pair21
+            car21: Atom22 x
+            cdr21: Pair23
+            car23: Atom24 y
+            cdr23: Atom25 NIL
+        cdr18: Atom26 NIL
+    cdr11: Atom27 NIL
+cdr4: Pair28
+car28: Atom29 a
+cdr28: Atom30 NIL
+
+a:
+Atom1 NIL
+
+==============================
+eval==========================
+
+e:
+Atom29 a
+
+a:
+Atom1 NIL
+
+==============================
+cons===================
+Pair36
+car36: Atom29 a
+cdr36: Atom35 NIL
+
+=======================
+cons===================
+Pair38
+car38: Atom29 a
+cdr38: Atom37 NIL
+
+=======================
+cons===================
+Pair39
+car39: Atom9 x
+cdr39: Pair38
+car38: Atom29 a
+cdr38: Atom37 NIL
+
+=======================
+cons===================
+Pair41
+car41: Pair39
+    car39: Atom9 x
+    cdr39: Pair38
+    car38: Atom29 a
+    cdr38: Atom37 NIL
+cdr41: Atom40 NIL
+
+=======================
+cons===================
+Pair42
+car42: Pair39
+    car39: Atom9 x
+    cdr39: Pair38
+    car38: Atom29 a
+    cdr38: Atom37 NIL
+cdr42: Atom1 NIL
+
+=======================
+eval==========================
+
+e:
+Pair12
+car12: Atom13 lambda
+cdr12: Pair14
+car14: Pair15
+    car15: Atom16 y
+    cdr15: Atom17 NIL
+cdr14: Pair18
+car18: Pair19
+    car19: Atom20 cons
+    cdr19: Pair21
+    car21: Atom22 x
+    cdr21: Pair23
+    car23: Atom24 y
+    cdr23: Atom25 NIL
+cdr18: Atom26 NIL
+
+a:
+Pair42
+car42: Pair39
+    car39: Atom9 x
+    cdr39: Pair38
+    car38: Atom29 a
+    cdr38: Atom37 NIL
+cdr42: Atom1 NIL
+
+==============================
+java.lang.Exception: at Eval.eval
+e:
+Pair3
+car3: Pair4
+    car4: Pair5
+        car5: Atom6 lambda
+        cdr5: Pair7
+        car7: Pair8
+            car8: Atom9 x
+            cdr8: Atom10 NIL
+        cdr7: Pair11
+        car11: Pair12
+            car12: Atom13 lambda
+            cdr12: Pair14
+            car14: Pair15
+                car15: Atom16 y
+                cdr15: Atom17 NIL
+            cdr14: Pair18
+            car18: Pair19
+                car19: Atom20 cons
+                cdr19: Pair21
+                car21: Atom22 x
+                cdr21: Pair23
+                car23: Atom24 y
+                cdr23: Atom25 NIL
+            cdr18: Atom26 NIL
+        cdr11: Atom27 NIL
+    cdr4: Pair28
+    car28: Atom29 a
+    cdr28: Atom30 NIL
+cdr3: Pair31
+car31: Atom32 b
+cdr31: Atom33 NIL
+
+a:
+Atom1 NIL
+
+java.lang.Exception: at Eval.eval
+e:
+Pair4
+car4: Pair5
+    car5: Atom6 lambda
+    cdr5: Pair7
+    car7: Pair8
+        car8: Atom9 x
+        cdr8: Atom10 NIL
+    cdr7: Pair11
+    car11: Pair12
+        car12: Atom13 lambda
+        cdr12: Pair14
+        car14: Pair15
+            car15: Atom16 y
+            cdr15: Atom17 NIL
+        cdr14: Pair18
+        car18: Pair19
+            car19: Atom20 cons
+            cdr19: Pair21
+            car21: Atom22 x
+            cdr21: Pair23
+            car23: Atom24 y
+            cdr23: Atom25 NIL
+        cdr18: Atom26 NIL
+    cdr11: Atom27 NIL
+cdr4: Pair28
+car28: Atom29 a
+cdr28: Atom30 NIL
+
+a:
+Atom1 NIL
+
+java.lang.Exception: case: lambda
+java.lang.Exception: at Eval.eval
+e:
+Pair12
+car12: Atom13 lambda
+cdr12: Pair14
+car14: Pair15
+    car15: Atom16 y
+    cdr15: Atom17 NIL
+cdr14: Pair18
+car18: Pair19
+    car19: Atom20 cons
+    cdr19: Pair21
+    car21: Atom22 x
+    cdr21: Pair23
+    car23: Atom24 y
+    cdr23: Atom25 NIL
+cdr18: Atom26 NIL
+
+a:
+Pair42
+car42: Pair39
+    car39: Atom9 x
+    cdr39: Pair38
+    car38: Atom29 a
+    cdr38: Atom37 NIL
+cdr42: Atom1 NIL
+
+java.lang.Exception: case: non-defined operator
+Atom13 lambda
