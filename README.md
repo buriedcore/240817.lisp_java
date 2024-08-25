@@ -18,3 +18,8 @@
 (lambda (y) (cons a y) b)
 
 になっていると考えられ、 non-defined operator エラーを返す
+
+# 改善案
+
+NIL オブジェクトを作る  
+インスタンスを一つだけ使い、参照を使う
